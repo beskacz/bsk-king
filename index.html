@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BSK KING</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&family=Lilita+One&family=Pacifico&display=swap" rel="stylesheet">
 <style>
   :root {
     --royal: #0b2a7a;
@@ -137,6 +137,23 @@
     background-size: 300% 100%;
     animation: shine 4s ease-in-out infinite;
   }
+  .ticker {
+    position: absolute; top: 34%; left: 0; right: 0; height: 18%;
+    display: flex; align-items: center;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .ticker-track {
+    display: flex; flex-shrink: 0; gap: 48px; padding-right: 48px;
+    white-space: nowrap;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(10px, 2.2vw, 15px);
+    color: var(--cream);
+    text-shadow: 0 1px 0 var(--caramel-dark);
+    animation: scroll 18s linear infinite;
+  }
+  .ticker-track .ok { color: #b6ff8a; }
+  @keyframes scroll { to { transform: translateX(-100%); } }
   .drip {
     position: absolute; top: 34%;
     width: 22px; border-radius: 0 0 11px 11px;
@@ -217,6 +234,21 @@
     d.style.animationDelay = (i * 0.6) + 's';
     bar.appendChild(d);
   });
+
+  const lines = [
+    '$ git push --force',
+    '<span class="ok">✓</span> deployed in 0.3s',
+    '$ npm run ship',
+    '<span class="ok">✓</span> 0 bugs found',
+    '$ git commit -m "fix: everything"',
+    '<span class="ok">✓</span> all checks passed',
+    '$ deploy --prod --friday',
+    '<span class="ok">✓</span> 100% coverage',
+  ].join('<span>·</span>');
+  const ticker = document.createElement('div');
+  ticker.className = 'ticker';
+  ticker.innerHTML = `<div class="ticker-track">${lines}</div><div class="ticker-track">${lines}</div>`;
+  bar.appendChild(ticker);
 
   const items = ['🚀', '👑', '⚡', '💻', '✅'];
   for (let i = 0; i < 22; i++) {
